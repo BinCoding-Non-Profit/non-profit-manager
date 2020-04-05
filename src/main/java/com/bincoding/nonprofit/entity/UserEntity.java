@@ -7,9 +7,11 @@ import java.util.Objects;
 @Table(name = "user", schema = "public", catalog = "np_manager")
 public class UserEntity {
     private long id;
-    private String email;
+    private String username;
     private String fname;
     private String lname;
+    private String password;
+    private String role;
     private String address;
     private String city;
     private String state;
@@ -36,13 +38,13 @@ public class UserEntity {
     }
 
     @Basic
-    @Column(name = "email", nullable = true)
-    public String getEmail() {
-        return email;
+    @Column(name = "username", nullable = true)
+    public String getUsername() {
+        return username;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setUsername(String email) {
+        this.username = email;
     }
 
     @Basic
@@ -63,6 +65,24 @@ public class UserEntity {
 
     public void setLname(String lname) {
         this.lname = lname;
+    }
+
+    @Column(name = "password")
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    @Column(name = "role")
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     @Basic
@@ -111,7 +131,7 @@ public class UserEntity {
         if (o == null || getClass() != o.getClass()) return false;
         UserEntity that = (UserEntity) o;
         return id == that.id &&
-                Objects.equals(email, that.email) &&
+                Objects.equals(username, that.username) &&
                 Objects.equals(fname, that.fname) &&
                 Objects.equals(lname, that.lname) &&
                 Objects.equals(address, that.address) &&
@@ -122,6 +142,6 @@ public class UserEntity {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, email, fname, lname, address, city, state, zip);
+        return Objects.hash(id, username, fname, lname, address, city, state, zip);
     }
 }

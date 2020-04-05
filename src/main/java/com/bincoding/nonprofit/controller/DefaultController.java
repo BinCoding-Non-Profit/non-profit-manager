@@ -4,9 +4,14 @@ import com.bincoding.nonprofit.entity.HelloWorld;
 import com.bincoding.nonprofit.entity.UserEntity;
 import com.bincoding.nonprofit.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
+import java.util.Optional;
 
 @RestController
 public class DefaultController {
@@ -14,7 +19,7 @@ public class DefaultController {
     @Autowired
     UserRepository userRepository;
 
-    @GetMapping(value = {"/", "/index"})
+    @GetMapping(value = "/")
     public HelloWorld getWelcome() {
         return new HelloWorld("Welcome to the Non-Profit SpringBoot Project!");
     }
@@ -24,11 +29,24 @@ public class DefaultController {
         return new HelloWorld("Hello World");
     }
 
+    @GetMapping(value = "/user")
+    public String user(HttpServletRequest request){
+
+        UserDetails userDetails = (UserDetails) request.getUserPrincipal();
+        Optional<UserEntity> userEntity = userRepository.findByUsername(userDetails.getUsername());
+        return "<h1>Welcome " + userEntity.get().getFname() + " " + userEntity.get().getLname()  +  "</h1>";
+    }
+
+    @GetMapping(value = "/admin")
+    public String admin(){
+        return "<h1>Welcome Admin</h1>";
+    }
+
 
     @PostMapping("/createUser")
     public String create(@RequestBody UserEntity user){
     // save a single UserEntity
-        userRepository.save(new UserEntity(user.getFname(), user.getLname()));
+        userRepository.save(user);
         return "UserEntity is created";
     }
 
