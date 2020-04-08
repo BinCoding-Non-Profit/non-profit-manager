@@ -10,24 +10,14 @@ public class UserEntity {
     private String username;
     private String fname;
     private String lname;
-    private String password;
-    private String role;
     private String address;
     private String city;
     private String state;
     private String zip;
-
-    public UserEntity(String fname, String lname) {
-        this.fname = fname;
-        this.lname = lname;
-    }
-
-    public UserEntity() {
-
-    }
+    private String password;
+    private String roles;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
     public long getId() {
         return id;
@@ -38,17 +28,17 @@ public class UserEntity {
     }
 
     @Basic
-    @Column(name = "username", nullable = true)
+    @Column(name = "username", nullable = true, length = 255)
     public String getUsername() {
         return username;
     }
 
-    public void setUsername(String email) {
-        this.username = email;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     @Basic
-    @Column(name = "fname", nullable = true)
+    @Column(name = "fname", nullable = true, length = 255)
     public String getFname() {
         return fname;
     }
@@ -58,7 +48,7 @@ public class UserEntity {
     }
 
     @Basic
-    @Column(name = "lname", nullable = true)
+    @Column(name = "lname", nullable = true, length = 255)
     public String getLname() {
         return lname;
     }
@@ -67,26 +57,8 @@ public class UserEntity {
         this.lname = lname;
     }
 
-    @Column(name = "password")
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    @Column(name = "role")
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
-
     @Basic
-    @Column(name = "address", nullable = true)
+    @Column(name = "address", nullable = true, length = -1)
     public String getAddress() {
         return address;
     }
@@ -96,7 +68,7 @@ public class UserEntity {
     }
 
     @Basic
-    @Column(name = "city", nullable = true)
+    @Column(name = "city", nullable = true, length = -1)
     public String getCity() {
         return city;
     }
@@ -106,7 +78,7 @@ public class UserEntity {
     }
 
     @Basic
-    @Column(name = "state", nullable = true)
+    @Column(name = "state", nullable = true, length = -1)
     public String getState() {
         return state;
     }
@@ -116,13 +88,33 @@ public class UserEntity {
     }
 
     @Basic
-    @Column(name = "zip", nullable = true)
+    @Column(name = "zip", nullable = true, length = -1)
     public String getZip() {
         return zip;
     }
 
     public void setZip(String zip) {
         this.zip = zip;
+    }
+
+    @Basic
+    @Column(name = "password", nullable = true, length = -1)
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    @Basic
+    @Column(name = "roles", nullable = true, length = -1)
+    public String getRoles() {
+        return roles;
+    }
+
+    public void setRoles(String roles) {
+        this.roles = roles;
     }
 
     @Override
@@ -137,11 +129,13 @@ public class UserEntity {
                 Objects.equals(address, that.address) &&
                 Objects.equals(city, that.city) &&
                 Objects.equals(state, that.state) &&
-                Objects.equals(zip, that.zip);
+                Objects.equals(zip, that.zip) &&
+                Objects.equals(password, that.password) &&
+                Objects.equals(roles, that.roles);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, username, fname, lname, address, city, state, zip);
+        return Objects.hash(id, username, fname, lname, address, city, state, zip, password, roles);
     }
 }
