@@ -22,7 +22,7 @@ public class CustomUserDetails implements org.springframework.security.core.user
     public CustomUserDetails(UserEntity user) {
         this.username = user.getUsername();
         this.password = user.getPassword();
-        this.authorities = Arrays.stream(user.getRole().split(","))
+        this.authorities = Arrays.stream(user.getRoles().split(","))
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
     }

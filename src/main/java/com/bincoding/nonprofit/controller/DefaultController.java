@@ -4,13 +4,10 @@ import com.bincoding.nonprofit.entity.HelloWorld;
 import com.bincoding.nonprofit.entity.UserEntity;
 import com.bincoding.nonprofit.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
-import java.util.Arrays;
 import java.util.Optional;
 
 @RestController
@@ -30,11 +27,12 @@ public class DefaultController {
     }
 
     @GetMapping(value = "/user")
-    public String user(HttpServletRequest request){
+    public String user(Authentication authentication){
 
-        UserDetails userDetails = (UserDetails) request.getUserPrincipal();
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         Optional<UserEntity> userEntity = userRepository.findByUsername(userDetails.getUsername());
         return "<h1>Welcome " + userEntity.get().getFname() + " " + userEntity.get().getLname()  +  "</h1>";
+//        return "<h1>Welcome  User</h1>";
     }
 
     @GetMapping(value = "/admin")

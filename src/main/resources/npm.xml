@@ -6,7 +6,7 @@
   <session-factory>
     <property name="connection.url">jdbc:postgresql://localhost:5432/np_manager</property>
     <property name="connection.driver_class">org.postgresql.Driver</property>
-      <mapping class="com.bincoding.nonprofit.entity.UserEntity"/>
+    <mapping class="com.bincoding.nonprofit.entity.UserEntity"/>
       <!-- <property name="connection.username"/> -->
     <!-- <property name="connection.password"/> -->
 
