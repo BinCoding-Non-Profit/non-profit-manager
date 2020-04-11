@@ -18,4 +18,9 @@ public class DefaultController {
         return new HelloWorld("Hello World");
     }
 
+    @GetMapping(value = "/bilal")
+    public HelloWorld getBilal() {
+        return new HelloWorld("Hello Bilal");
+    }
+
 }
