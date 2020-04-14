@@ -6,9 +6,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
 public class NonprofitApplication {
-
 	public static void main(String[] args) {
 		SpringApplication.run(NonprofitApplication.class, args);
 	}
-
 }
