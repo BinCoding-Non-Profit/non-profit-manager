@@ -16,6 +16,7 @@ SET xmloption = content;
 SET client_min_messages = warning;
 SET row_security = off;
 
+ALTER TABLE ONLY public."user" DROP CONSTRAINT username_unique;
 ALTER TABLE ONLY public."user" DROP CONSTRAINT user_pkey;
 DROP TABLE public."user";
 DROP SEQUENCE public.hibernate_sequence;
@@ -78,6 +79,8 @@ ALTER TABLE public."user" OWNER TO npm;
 
 COPY public."user" (id, username, fname, lname, address, city, state, zip, password, roles) FROM stdin;
 0	hhb450@gmail.com	Haris	Siddiqui			\N		admin	ROLE_USER,ROLE_ADMIN
+1	bilal	Bilal	Siddiqui	\N	\N	\N	\N	$2a$10$slYQmyNdGzTn7ZLBXBChFOC9f6kFjAqPhccnP6DxlWXx2lPk1C3G6	ROLE_ADMIN,ROLE_USER
+3	hhb450	\N	\N	\N	\N	\N	\N	$2a$10$.m9VTlKKFPyLUk6nTZnRG.cxZifqGl3IeQVMocHqNf9GBtsX8svB.	ROLE_USER,ROLE_ADMIN
 \.
 
 
@@ -85,7 +88,7 @@ COPY public."user" (id, username, fname, lname, address, city, state, zip, passw
 -- Name: hibernate_sequence; Type: SEQUENCE SET; Schema: public; Owner: npm
 --
 
-SELECT pg_catalog.setval('public.hibernate_sequence', 1, true);
+SELECT pg_catalog.setval('public.hibernate_sequence', 4, true);
 
 
 --
@@ -94,6 +97,14 @@ SELECT pg_catalog.setval('public.hibernate_sequence', 1, true);
 
 ALTER TABLE ONLY public."user"
     ADD CONSTRAINT user_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: user username_unique; Type: CONSTRAINT; Schema: public; Owner: npm
+--
+
+ALTER TABLE ONLY public."user"
+    ADD CONSTRAINT username_unique UNIQUE (username);
 
 
 --
