@@ -14,10 +14,9 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Component
 public class CustomUserDetails implements org.springframework.security.core.userdetails.UserDetails {
 
-    private String username ;
+    private String username;
     private String password;
     private String active;
     private List<GrantedAuthority> authorities;
@@ -26,7 +25,6 @@ public class CustomUserDetails implements org.springframework.security.core.user
     public CustomUserDetails(UserEntity user) {
         this.username = user.getUsername();
 
-//        PasswordEncoder bcryptEncoder = new BCryptPasswordEncoder();
         this.password = user.getPassword();
         this.authorities = Arrays.stream(user.getRoles().split(","))
                 .map(SimpleGrantedAuthority::new)
@@ -74,4 +72,5 @@ public class CustomUserDetails implements org.springframework.security.core.user
     public boolean isEnabled() {
         return true;
     }
+
 }
