@@ -1,7 +1,9 @@
 package com.bincoding.nonprofit.controller;
 
-import java.util.Objects;
-
+import com.bincoding.nonprofit.config.JwtTokenUtil;
+import com.bincoding.nonprofit.entity.UserEntity;
+import com.bincoding.nonprofit.model.JwtRequest;
+import com.bincoding.nonprofit.model.JwtResponse;
 import com.bincoding.nonprofit.service.JwtUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -10,16 +12,12 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.bincoding.nonprofit.config.JwtTokenUtil;
-import com.bincoding.nonprofit.model.JwtRequest;
-import com.bincoding.nonprofit.model.JwtResponse;
+import java.util.Objects;
 
 @RestController
 @CrossOrigin
@@ -34,7 +32,7 @@ public class JwtAuthenticationController {
     @Autowired
     private JwtUserDetailsService userDetailsService;
 
-    @RequestMapping(value = "/authenticate", method = RequestMethod.POST)
+    @PostMapping(value = "/authenticate")
     public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest)
             throws Exception {
 
@@ -46,6 +44,11 @@ public class JwtAuthenticationController {
         final String token = jwtTokenUtil.generateToken(userDetails);
 
         return ResponseEntity.ok(new JwtResponse(token));
+    }
+
+    @PostMapping(value = "/register")
+    public ResponseEntity<?> saveUser(@RequestBody UserEntity user) throws Exception {
+        return ResponseEntity.ok(userDetailsService.save(user));
     }
 
     private void authenticate(String username, String password) throws Exception {
