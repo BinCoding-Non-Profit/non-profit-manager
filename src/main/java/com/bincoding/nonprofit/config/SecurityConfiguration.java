@@ -62,6 +62,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
+        //This will add the Spring-provided CorsFilter to the application context which in turn bypasses the authorization checks for OPTIONS requests.
+        httpSecurity.cors();
+
         // Add a filter to validate the tokens with every request
         httpSecurity.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
     }
