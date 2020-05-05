@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 12.2
--- Dumped by pg_dump version 12.2
+-- Dumped from database version 11.6
+-- Dumped by pg_dump version 11.6
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -16,13 +16,8 @@ SET xmloption = content;
 SET client_min_messages = warning;
 SET row_security = off;
 
-ALTER TABLE ONLY public."user" DROP CONSTRAINT username_unique;
-ALTER TABLE ONLY public."user" DROP CONSTRAINT user_pkey;
-DROP TABLE public."user";
-DROP SEQUENCE public.hibernate_sequence;
-DROP EXTENSION adminpack;
 --
--- Name: adminpack; Type: EXTENSION; Schema: -; Owner: -
+-- Name: adminpack; Type: EXTENSION; Schema: -; Owner: 
 --
 
 CREATE EXTENSION IF NOT EXISTS adminpack WITH SCHEMA pg_catalog;
@@ -51,7 +46,7 @@ ALTER TABLE public.hibernate_sequence OWNER TO npm;
 
 SET default_tablespace = '';
 
-SET default_table_access_method = heap;
+SET default_with_oids = false;
 
 --
 -- Name: user; Type: TABLE; Schema: public; Owner: npm
@@ -72,40 +67,6 @@ CREATE TABLE public."user" (
 
 
 ALTER TABLE public."user" OWNER TO npm;
-
---
--- Data for Name: user; Type: TABLE DATA; Schema: public; Owner: npm
---
-
-COPY public."user" (id, username, fname, lname, address, city, state, zip, password, roles) FROM stdin;
-0	hhb450@gmail.com	Haris	Siddiqui			\N		admin	ROLE_USER,ROLE_ADMIN
-1	bilal	Bilal	Siddiqui	\N	\N	\N	\N	$2a$10$slYQmyNdGzTn7ZLBXBChFOC9f6kFjAqPhccnP6DxlWXx2lPk1C3G6	ROLE_ADMIN,ROLE_USER
-3	hhb450	\N	\N	\N	\N	\N	\N	$2a$10$.m9VTlKKFPyLUk6nTZnRG.cxZifqGl3IeQVMocHqNf9GBtsX8svB.	ROLE_USER,ROLE_ADMIN
-\.
-
-
---
--- Name: hibernate_sequence; Type: SEQUENCE SET; Schema: public; Owner: npm
---
-
-SELECT pg_catalog.setval('public.hibernate_sequence', 4, true);
-
-
---
--- Name: user user_pkey; Type: CONSTRAINT; Schema: public; Owner: npm
---
-
-ALTER TABLE ONLY public."user"
-    ADD CONSTRAINT user_pkey PRIMARY KEY (id);
-
-
---
--- Name: user username_unique; Type: CONSTRAINT; Schema: public; Owner: npm
---
-
-ALTER TABLE ONLY public."user"
-    ADD CONSTRAINT username_unique UNIQUE (username);
-
 
 --
 -- PostgreSQL database dump complete
