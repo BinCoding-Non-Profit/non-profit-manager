@@ -1,12 +1,13 @@
 package com.bincoding.nonprofit.entity;
 
 import javax.persistence.*;
+import java.util.Collection;
 import java.util.Objects;
 
 @Entity
 @Table(name = "user", schema = "public", catalog = "np_manager")
 public class UserEntity {
-    private long id;
+    private int id;
     private String username;
     private String fname;
     private String lname;
@@ -17,14 +18,16 @@ public class UserEntity {
     private String password;
     private String roles;
 
+    @ManyToMany
+    private Collection<OrganizationEntity> organization;
+
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", nullable = false)
-    public long getId() {
+    @Column(name = "id")
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
