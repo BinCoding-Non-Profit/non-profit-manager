@@ -1,7 +1,7 @@
 package com.bincoding.nonprofit.service;
 
-import com.bincoding.nonprofit.config.CustomUserDetails;
 import com.bincoding.nonprofit.entity.UserEntity;
+import com.bincoding.nonprofit.config.CustomUserDetails;
 import com.bincoding.nonprofit.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -33,6 +33,12 @@ public class JwtUserDetailsService implements UserDetailsService {
     public UserEntity save(UserEntity user) {
         UserEntity newUser = new UserEntity();
         newUser.setUsername(user.getUsername());
+        newUser.setFname(user.getFname());
+        newUser.setLname(user.getLname());
+        newUser.setAddress(user.getAddress());
+        newUser.setState(user.getState());
+        newUser.setCity(user.getCity());
+        newUser.setZip(user.getZip());
         newUser.setPassword(bcryptEncoder.encode(user.getPassword()));
         newUser.setRoles(user.getRoles());
         return userRepository.save(newUser);
